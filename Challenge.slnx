@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/1 - API/">
+    <Project Path="src/Challenge.Api/Challenge.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/2 - Application/">
+    <Project Path="src/Challenge.Application/Challenge.Application.csproj" />
+  </Folder>
+  <Folder Name="/src/3 - Domain/">
+    <Project Path="src/Challenge.Domain/Challenge.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/4 - Infrastructure/">
+    <Project Path="src/Challenge.Infrastructure.Data/Challenge.Infrastructure.Data.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+</Solution>
