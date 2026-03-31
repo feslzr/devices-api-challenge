@@ -1,23 +1,37 @@
+using Asp.Versioning.ApiExplorer;
+using Challenge.Api.Filters;
+using Challenge.Application.DependencyInjectionExtension;
+using Challenge.Infrastructure.Data.DependencyInjectionExtension;
+using Challenge.Infrastructure.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<CustomExceptionFilterAttribute>();
+});
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwagger();
+
+builder.Services.AddInfraConfiguration(builder.Configuration);
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddApplicationMediatR();
+
+builder.Host.UseDefaultServiceProvider(option => option.ValidateScopes = false);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+app.UseSwaggerPage(app.Services.GetRequiredService<IApiVersionDescriptionProvider>());
+
+#if DEBUG
+app.UseDeveloperExceptionPage();
+#endif
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();

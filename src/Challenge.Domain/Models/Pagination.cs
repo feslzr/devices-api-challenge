@@ -5,7 +5,7 @@ namespace Challenge.Domain.Models;
 [ExcludeFromCodeCoverage]
 public class Pagination<T> where T : class
 {
-    public virtual IEnumerable<T>? Itens { get; set; }
+    public virtual IEnumerable<T>? Items { get; set; }
 
     public int Offset { get; set; }
 

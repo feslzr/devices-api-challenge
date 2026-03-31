@@ -1,4 +1,5 @@
-﻿using Challenge.Application.UseCase.Handlers;
+﻿using Asp.Versioning;
+using Challenge.Application.UseCase.Handlers;
 using Challenge.Domain.Entity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

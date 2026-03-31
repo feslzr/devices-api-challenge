@@ -27,7 +27,7 @@ public abstract class BaseRepository<TEntity>(SqlDbContext context) : IBaseRepos
     public virtual IEnumerable<TEntity> FindAll(Expression<Func<TEntity, bool>> expression)
         => _dbSet.Where(expression);
 
-    public virtual async Task<IEnumerable<TEntity>> GetAsllListAsync()
+    public virtual async Task<IEnumerable<TEntity>> GetAllListAsync()
         => await _dbSet.ToListAsync();
 
     public virtual IQueryable<TEntity> GetAllAsync()
@@ -45,7 +45,7 @@ public abstract class BaseRepository<TEntity>(SqlDbContext context) : IBaseRepos
             Offset = offset,
             Limit = limit,
             Total = query.Count(),
-            Itens = [.. query.Skip(offset).Take(limit)]
+            Items = [.. query.Skip(offset).Take(limit)]
         };
 
     public virtual async Task<TEntity> GetByIdAsync(int id)
