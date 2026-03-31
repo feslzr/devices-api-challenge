@@ -1,4 +1,5 @@
-﻿using Challenge.Application.Interfaces.Repository;
+﻿using Challenge.Application.Exceptions;
+using Challenge.Application.Interfaces.Repository;
 using Challenge.Domain.Entity;
 using Challenge.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,8 @@ namespace Challenge.Infrastructure.Data.Repository;
 public class DeviceRepository(SqlDbContext context) : BaseRepository<Device>(context), IDeviceRepository
 {
     public async Task<Device> GetDeviceByIdAsync(int id)
-        => await _dbSet.Where(c => c.Id == id)
-                       .FirstAsync();
+        => await _dbSet.Where(c => c.Id == id).FirstOrDefaultAsync()
+           ?? throw new NullEntityException($"Device with id {id} not found.");
 
     public async Task<List<Device>> GetDevicesAsync(string? name, string? brand, int? state, int offset, int limit)
     {
