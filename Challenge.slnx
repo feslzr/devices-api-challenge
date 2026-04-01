@@ -14,4 +14,8 @@
     <Project Path="src/Challenge.Infrastructure/Challenge.Infrastructure.csproj" Id="08938db4-4b9c-4d95-b5c6-002fcd0a00f3" />
   </Folder>
   <Folder Name="/tests/" />
+  <Folder Name="/tests/Unit/">
+    <Project Path="tests/ApiTests/ApiTests.csproj" Id="e1272e01-89fa-4902-b789-b8f35ccbaf56" />
+    <Project Path="tests/ApplicationTest/ApplicationTest.csproj" Id="a535e718-32c8-4de0-b6bc-fce51d1ce678" />
+  </Folder>
 </Solution>

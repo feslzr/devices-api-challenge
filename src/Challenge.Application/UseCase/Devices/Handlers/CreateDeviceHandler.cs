@@ -1,5 +1,4 @@
-﻿using Challenge.Application.Exceptions;
-using Challenge.Application.Interfaces.Repository;
+﻿using Challenge.Application.Interfaces.Repository;
 using Challenge.Application.UseCase.Devices.Base;
 using Challenge.Domain.Entity;
 using Challenge.Domain.Enum;
@@ -29,7 +28,7 @@ public class CreateDeviceHandler(IDeviceRepository deviceRepository) : IRequestH
         var device = await deviceRepository.GetDeviceAsync(request.Name, request.Brand, (int?)request.State);
 
         if (device != null)
-            throw new BusinessRuleException("A device with this information has already been registered.");
+            throw new InvalidOperationException("A device with this information has already been registered.");
 
         device = new Device(request.Name!, request.Brand!, (int)request.State!);
 

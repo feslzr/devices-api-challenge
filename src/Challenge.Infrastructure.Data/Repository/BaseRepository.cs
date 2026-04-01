@@ -1,5 +1,4 @@
-﻿using Challenge.Application.Exceptions;
-using Challenge.Application.Interfaces.Repository;
+﻿using Challenge.Application.Interfaces.Repository;
 using Challenge.Domain.Models;
 using Challenge.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -49,7 +48,7 @@ public abstract class BaseRepository<TEntity>(SqlDbContext context) : IBaseRepos
         };
 
     public virtual async Task<TEntity> GetByIdAsync(int id)
-        => await _dbSet.FindAsync(id) ?? throw new NullEntityException("Entity not found");
+        => await _dbSet.FindAsync(id) ?? throw new KeyNotFoundException("Entity not found");
 
     public virtual void Remove(TEntity entity)
         => _dbSet.Remove(entity);
