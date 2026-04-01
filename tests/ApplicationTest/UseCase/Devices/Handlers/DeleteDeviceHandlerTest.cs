@@ -1,9 +1,9 @@
 ﻿using AutoFixture;
 using Challenge.Application.Interfaces.Repository;
 using Challenge.Application.UseCase.Devices.Handlers;
-using Challenge.Domain.Common;
 using Challenge.Domain.Entity;
 using Challenge.Domain.Enum;
+using Challenge.Tests.Common.Common;
 using MediatR;
 using Moq;
 using System.Diagnostics.CodeAnalysis;

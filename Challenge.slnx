@@ -17,5 +17,6 @@
   <Folder Name="/tests/Unit/">
     <Project Path="tests/ApiTests/ApiTests.csproj" Id="e1272e01-89fa-4902-b789-b8f35ccbaf56" />
     <Project Path="tests/ApplicationTest/ApplicationTest.csproj" Id="a535e718-32c8-4de0-b6bc-fce51d1ce678" />
+    <Project Path="tests/Challenge.Tests.Common/Challenge.Tests.Common.csproj" Id="3c39a194-b582-41ab-9423-875e0d8923f7" />
   </Folder>
 </Solution>

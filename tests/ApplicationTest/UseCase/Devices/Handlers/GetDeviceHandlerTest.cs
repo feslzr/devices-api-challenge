@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
 using Challenge.Application.Interfaces.Repository;
 using Challenge.Application.UseCase.Devices.Handlers;
-using Challenge.Domain.Common;
 using Challenge.Domain.Entity;
+using Challenge.Tests.Common.Common;
 using Moq;
 using System.Diagnostics.CodeAnalysis;
 

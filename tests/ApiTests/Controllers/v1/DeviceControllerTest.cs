@@ -1,9 +1,9 @@
 ﻿using AutoFixture;
 using Challenge.Api.Controllers.v1;
 using Challenge.Application.UseCase.Devices.Handlers;
-using Challenge.Domain.Common;
 using Challenge.Domain.Entity;
 using Challenge.Domain.Models;
+using Challenge.Tests.Common.Common;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

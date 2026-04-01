@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Challenge.Application\Challenge.Application.csproj" />
+    <ProjectReference Include="..\Challenge.Tests.Common\Challenge.Tests.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
