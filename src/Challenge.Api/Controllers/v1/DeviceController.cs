@@ -1,6 +1,9 @@
 ﻿using Asp.Versioning;
-using Challenge.Application.UseCase.Handlers;
+using Challenge.Application.UseCase.Devices.Base;
+using Challenge.Application.UseCase.Devices.Handlers;
 using Challenge.Domain.Entity;
+using Challenge.Domain.Models;
+using Mapster;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,38 +18,42 @@ namespace Challenge.Api.Controllers.v1;
 [Route("v{version:apiVersion}/[controller]")]
 public class DeviceController(IMediator mediator) : ControllerBase
 {
-    ///// <summary>
-    ///// Obtém uma lista paginada de todos os contatos
-    ///// </summary>
-    ///// <param name="useCase">Campos disponíveis para paginação</param>
-    ///// <returns>Retorna uma lista de todos os contatos com paginação</returns>
-    //[HttpGet("All")]
-    //[ProducesResponseType(typeof(Pagination<Contact>), StatusCodes.Status200OK)]
-    //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //public async Task<IActionResult> GetAll([FromQuery] GetContactAllUseCase useCase)
-    //{
-    //    var response = await mediator.Send(useCase);
+    /// <summary>
+    /// Create a new device
+    /// </summary>
+    /// <param name="request">Fields required to create a new device</param>
+    /// <returns>Returns a new device with fields</returns>
+    [HttpPost("Create")]
+    [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Create(CreateDeviceUseCase request)
+    {
+        var response = await mediator.Send(request);
 
-    //    return Ok(response);
-    //}
-
-    ///// <summary>
-    ///// Obtém uma lista paginada filtrada de contatos
-    ///// </summary>
-    ///// <param name="useCase">Campos disponíveis para filtro</param>
-    ///// <returns>Retorna uma lista de contatos filtrados com paginação</returns>
-    //[HttpGet("List")]
-    //[ProducesResponseType(typeof(List<Contact>), StatusCodes.Status200OK)]
-    //[ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    //public async Task<IActionResult> GetList([FromQuery] GetContactListUseCase useCase)
-    //{
-    //    var response = await mediator.Send(useCase);
-
-    //    return Ok(response);
-    //}
+        return Ok(response);
+    }
 
     /// <summary>
-    /// Get a device by ID
+    /// Update an existing device
+    /// </summary>
+    /// <param name="id">The ID of the device to update</param>
+    /// <param name="request">Fields available for updating an existing device</param>
+    /// <returns>Returns the success of the request</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Update(int id, [FromBody] BaseDeviceUseCase request)
+    {
+        var useCase = request.Adapt<UpdateDeviceUseCase>();
+        useCase.Id = id;
+
+        await mediator.Send(useCase);
+
+        return Ok();
+    }
+
+    /// <summary>
+    /// Get a single device by ID
     /// </summary>
     /// <param name="id">The ID of the device to retrieve</param>
     /// <returns>Returns a device filtered by ID</returns>
@@ -58,5 +65,50 @@ public class DeviceController(IMediator mediator) : ControllerBase
         var response = await mediator.Send(new GetDeviceUseCase() { Id = id });
 
         return Ok(response);
+    }
+
+    /// <summary>
+    /// Get a paginated list of all devices
+    /// </summary>
+    /// <param name="request">Fields available for pagination</param>
+    /// <returns>Returns a list of all devices with pagination</returns>
+    [HttpGet("All")]
+    [ProducesResponseType(typeof(Pagination<Device>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAll([FromQuery] GetDeviceAllUseCase request)
+    {
+        var response = await mediator.Send(request);
+
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Get a paginated list of filtered devices
+    /// </summary>
+    /// <param name="request">Fields available for filtering</param>
+    /// <returns>Returns a list of filtered devices with pagination</returns>
+    [HttpGet("List")]
+    [ProducesResponseType(typeof(List<Device>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetList([FromQuery] GetDeviceListUseCase request)
+    {
+        var response = await mediator.Send(request);
+
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// Remove a device by ID
+    /// </summary>
+    /// <param name="id">The ID of the device to remove</param>
+    /// <returns>Returns the success of the request</returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await mediator.Send(new DeleteDeviceUseCase() { Id = id });
+
+        return Ok();
     }
 }

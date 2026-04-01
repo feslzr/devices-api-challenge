@@ -3,7 +3,7 @@ using Challenge.Domain.Entity;
 using MediatR;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Challenge.Application.UseCase.Handlers;
+namespace Challenge.Application.UseCase.Devices.Handlers;
 
 [ExcludeFromCodeCoverage]
 public class GetDeviceUseCase : IRequest<Device>
