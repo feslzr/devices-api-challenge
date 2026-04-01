@@ -1,28 +1,19 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-# This stage is used when running from VS in fast mode (Default for Debug configuration)
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-
-# This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Challenge.Api/Challenge.Api.csproj", "Challenge.Api/"]
-RUN dotnet restore "./Challenge.Api/Challenge.Api.csproj"
+
+COPY ["src/Challenge.Api/Challenge.Api.csproj", "src/Challenge.Api/"]
+COPY ["src/Challenge.Application/Challenge.Application.csproj", "src/Challenge.Application/"]
+COPY ["src/Challenge.Domain/Challenge.Domain.csproj", "src/Challenge.Domain/"]
+COPY ["src/Challenge.Infrastructure/Challenge.Infrastructure.csproj", "src/Challenge.Infrastructure/"]
+COPY ["src/Challenge.Infrastructure.Data/Challenge.Infrastructure.Data.csproj", "src/Challenge.Infrastructure.Data/"]
+
+RUN dotnet restore "src/Challenge.Api/Challenge.Api.csproj"
+
 COPY . .
-WORKDIR "/src/Challenge.Api"
-RUN dotnet build "./Challenge.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
-# This stage is used to publish the service project to be copied to the final stage
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Challenge.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
-FROM base AS final
+
+RUN dotnet publish "src/Challenge.Api/Challenge.Api.csproj" -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "Challenge.Api.dll"]
