@@ -48,15 +48,6 @@ public class Device
         private set => SetBrand(value);
     }
 
-    [Column("CreatedAt")]
-    [JsonPropertyName("createdAt")]
-    private DateTime _createdAt;
-    public DateTime CreatedAt
-    {
-        get => _createdAt;
-        private set => _createdAt = value;
-    }
-
     [Column("State")]
     [JsonPropertyName("state")]
     private int _state;
@@ -64,6 +55,15 @@ public class Device
     {
         get => _state;
         private set => SetState(value);
+    }
+
+    [Column("CreatedAt")]
+    [JsonPropertyName("createdAt")]
+    private DateTime _createdAt;
+    public DateTime CreatedAt
+    {
+        get => _createdAt;
+        private set => _createdAt = value;
     }
 
     #region Public Methods
