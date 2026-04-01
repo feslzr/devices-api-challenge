@@ -47,9 +47,8 @@ public class DeviceController(IMediator mediator) : ControllerBase
         var useCase = request.Adapt<UpdateDeviceUseCase>();
         useCase.Id = id;
 
-        await mediator.Send(useCase);
-
-        return Ok();
+        var response = await mediator.Send(useCase);
+        return Ok(response);
     }
 
     /// <summary>

@@ -20,13 +20,5 @@ public class GetDeviceListUseCase : BaseDeviceUseCase, IRequest<List<Device>>
 public class GetDeviceListHandler(IDeviceRepository deviceRepository) : IRequestHandler<GetDeviceListUseCase, List<Device>>
 {
     public async Task<List<Device>> Handle(GetDeviceListUseCase request, CancellationToken cancellationToken)
-    {
-        var result = new List<Device>();
-
-        var deviceList = await deviceRepository.GetDevicesAsync(request.Name, request.Brand, (int?)request.State, request.Offset, request.Limit);
-
-        result.AddRange(deviceList);
-
-        return result;
-    }
+        => await deviceRepository.GetDevicesAsync(request.Name, request.Brand, (int?)request.State, request.Offset, request.Limit);
 }
