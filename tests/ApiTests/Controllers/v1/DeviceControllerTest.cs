@@ -1,8 +1,8 @@
 ﻿using AutoFixture;
 using Challenge.Api.Controllers.v1;
 using Challenge.Application.UseCase.Devices.Handlers;
+using Challenge.Domain.Common;
 using Challenge.Domain.Entity;
-using Challenge.Domain.Enum;
 using Challenge.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -13,24 +13,15 @@ using System.Diagnostics.CodeAnalysis;
 namespace ApiTests.Controllers.v1;
 
 [ExcludeFromCodeCoverage]
-public class DeviceControllerTest
+public class DeviceControllerTest : BaseDeviceTest
 {
     private readonly DeviceController _deviceController;
-
-    private readonly Fixture _fixture;
 
     private readonly Mock<IMediator> _mediatorMock;
 
     public DeviceControllerTest()
     {
         _mediatorMock = new Mock<IMediator>();
-
-        _fixture = new Fixture();
-
-        _fixture.Register(() => Device.Create(
-            _fixture.Create<string>(),
-            _fixture.Create<string>(),
-            (int)StateEnum.Available));
 
         _deviceController = new DeviceController(_mediatorMock.Object);
     }
@@ -55,6 +46,9 @@ public class DeviceControllerTest
         // Arrange
         var useCase = _fixture.Create<UpdateDeviceUseCase>();
 
+        _mediatorMock.Setup(m => m.Send(It.IsAny<UpdateDeviceUseCase>(), default))
+                     .ReturnsAsync(_fixture.Create<Device>());
+
         // Act
         var result = await _deviceController.Update(It.IsAny<int>(), useCase);
 
@@ -66,7 +60,11 @@ public class DeviceControllerTest
     [Fact]
     public async Task DeleteDevice_ReturnsOkResult()
     {
-        // Arrange & Act
+        // Arrange
+        _mediatorMock.Setup(m => m.Send(It.IsAny<DeleteDeviceUseCase>(), default))
+                     .ReturnsAsync(Unit.Value);
+
+        // Act
         var result = await _deviceController.Delete(It.IsAny<int>());
 
         // Assert

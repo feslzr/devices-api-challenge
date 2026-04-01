@@ -3,7 +3,7 @@ using Challenge.Domain.Entity;
 using Challenge.Domain.Enum;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ApplicationTest.UseCase.Devices;
+namespace Challenge.Domain.Common;
 
 [ExcludeFromCodeCoverage]
 public abstract class BaseDeviceTest
