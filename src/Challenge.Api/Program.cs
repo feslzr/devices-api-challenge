@@ -3,6 +3,7 @@ using Challenge.Api.Filters;
 using Challenge.Application.DependencyInjectionExtension;
 using Challenge.Infrastructure.Data.DependencyInjectionExtension;
 using Challenge.Infrastructure.Extensions;
+using Challenge.Infrastructure.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,11 @@ builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers(options =>
 {
     options.Filters.Add<CustomExceptionFilterAttribute>();
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SchemaFilter<EnumSchemaFilter>();
 });
 
 builder.Services.AddEndpointsApiExplorer();

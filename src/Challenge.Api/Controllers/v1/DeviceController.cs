@@ -52,6 +52,21 @@ public class DeviceController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
+    /// Remove a device by ID
+    /// </summary>
+    /// <param name="id">The ID of the device to remove</param>
+    /// <returns>Returns the success of the request</returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> Delete(int id)
+    {
+        await mediator.Send(new DeleteDeviceUseCase() { Id = id });
+
+        return Ok();
+    }
+
+    /// <summary>
     /// Get a single device by ID
     /// </summary>
     /// <param name="id">The ID of the device to retrieve</param>
@@ -94,20 +109,5 @@ public class DeviceController(IMediator mediator) : ControllerBase
         var response = await mediator.Send(request);
 
         return Ok(response);
-    }
-
-    /// <summary>
-    /// Remove a device by ID
-    /// </summary>
-    /// <param name="id">The ID of the device to remove</param>
-    /// <returns>Returns the success of the request</returns>
-    [HttpDelete("{id}")]
-    [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> Delete(int id)
-    {
-        await mediator.Send(new DeleteDeviceUseCase() { Id = id });
-
-        return Ok();
     }
 }
