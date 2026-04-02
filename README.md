@@ -27,7 +27,7 @@ GitHub: [feslzr](https://github.com/feslzr)
 The project follows **Clean Architecture** principles, organized into the following layers:
 
 - **Challenge.Domain** — entities, enums, and domain models
-- **Challenge.Application** — use cases, handlers (MediatR), repository interfaces, and exceptions
+- **Challenge.Application** — use cases, handlers (MediatR), and repository interfaces
 - **Challenge.Infrastructure** — Swagger configuration and filters
 - **Challenge.Infrastructure.Data** — EF Core DbContext, repository implementations, and migrations
 - **Challenge.Api** — controllers, filters, and application entry point
@@ -52,14 +52,14 @@ A `Device` resource contains the following fields:
 
 Base URL: `http://localhost:8080/v1/device`
 
-| Method   | Endpoint         | Description                        | Status Code        |
-|----------|------------------|------------------------------------|--------------------|
-| POST     | /create          | Create a new device                | 201 Created        |
-| PATCH    | /{id}            | Partially update an existing device| 200 OK             |
-| GET      | /{id}            | Fetch a single device by ID        | 200 OK             |
-| GET      | /all             | Fetch all devices (paginated)      | 200 OK             |
-| GET      | /list            | Fetch devices by brand and/or state| 200 OK             |
-| DELETE   | /{id}            | Delete a single device             | 204 No Content     |
+| Method   | Endpoint         | Description                           | Status Code        |
+|----------|------------------|---------------------------------------|--------------------|
+| POST     | /create          | Create a new device                   | 201 Created        |
+| PATCH    | /{id}            | Partially update an existing device   | 200 OK             |
+| GET      | /{id}            | Fetch a single device by ID           | 200 OK             |
+| GET      | /all             | Fetch all devices (paginated)         | 200 OK             |
+| GET      | /list            | Fetch devices by name, brand and state| 200 OK             |
+| DELETE   | /{id}            | Delete a single device                | 204 No Content     |
 
 ### Domain Validations
 
