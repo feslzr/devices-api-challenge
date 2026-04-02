@@ -10,7 +10,6 @@ namespace Challenge.Infrastructure.Options;
 [ExcludeFromCodeCoverage]
 public class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : IConfigureOptions<SwaggerGenOptions>
 {
-    /// <inheritdoc />
     public void Configure(SwaggerGenOptions options)
     {
         foreach (var description in provider.ApiVersionDescriptions)
@@ -21,7 +20,7 @@ public class ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) : 
     {
         var info = new OpenApiInfo()
         {
-            Title = "Challenge - Device API",
+            Title = "Device API",
             Version = description.ApiVersion.ToString(),
             Description = "Platform for managing device registrations."
         };

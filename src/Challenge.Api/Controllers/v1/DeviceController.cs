@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Challenge.Api.Controllers.v1;
 
 /// <summary>
-/// Controller for device management
+/// Controller for device management.
 /// </summary>
 /// <param name="mediator"></param>
 [ApiController]
@@ -19,10 +19,10 @@ namespace Challenge.Api.Controllers.v1;
 public class DeviceController(IMediator mediator) : ControllerBase
 {
     /// <summary>
-    /// Create a new device
+    /// Create a new device.
     /// </summary>
-    /// <param name="request">Fields required to create a new device</param>
-    /// <returns>Returns a new device with fields</returns>
+    /// <param name="request">Fields required to create a new device.</param>
+    /// <returns>Returns a new device with fields.</returns>
     [HttpPost("Create")]
     [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -34,11 +34,11 @@ public class DeviceController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Update an existing device
+    /// Update an existing device.
     /// </summary>
-    /// <param name="id">The ID of the device to update</param>
-    /// <param name="request">Fields available for updating an existing device</param>
-    /// <returns>Returns the success of the request</returns>
+    /// <param name="id">The ID of the device to update.</param>
+    /// <param name="request">Fields available for updating an existing device.</param>
+    /// <returns>Returns the success of the request.</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -52,10 +52,10 @@ public class DeviceController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Remove a device by ID
+    /// Remove a device by ID.
     /// </summary>
-    /// <param name="id">The ID of the device to remove</param>
-    /// <returns>Returns the success of the request</returns>
+    /// <param name="id">The ID of the device to remove.</param>
+    /// <returns>Returns the success of the request.</returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -67,10 +67,10 @@ public class DeviceController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Get a single device by ID
+    /// Get a single device by ID.
     /// </summary>
-    /// <param name="id">The ID of the device to retrieve</param>
-    /// <returns>Returns a device filtered by ID</returns>
+    /// <param name="id">The ID of the device to retrieve.</param>
+    /// <returns>Returns a device filtered by ID.</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -82,10 +82,10 @@ public class DeviceController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Get a paginated list of all devices
+    /// Get a paginated list of all devices.
     /// </summary>
-    /// <param name="request">Fields available for pagination</param>
-    /// <returns>Returns a list of all devices with pagination</returns>
+    /// <param name="request">Fields available for pagination.</param>
+    /// <returns>Returns a list of all devices with pagination.</returns>
     [HttpGet("All")]
     [ProducesResponseType(typeof(Pagination<Device>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -97,10 +97,10 @@ public class DeviceController(IMediator mediator) : ControllerBase
     }
 
     /// <summary>
-    /// Get a paginated list of filtered devices
+    /// Get a paginated list of filtered devices.
     /// </summary>
-    /// <param name="request">Fields available for filtering</param>
-    /// <returns>Returns a list of filtered devices with pagination</returns>
+    /// <param name="request">Fields available for filtering.</param>
+    /// <returns>Returns a list of filtered devices with pagination.</returns>
     [HttpGet("List")]
     [ProducesResponseType(typeof(List<Device>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]

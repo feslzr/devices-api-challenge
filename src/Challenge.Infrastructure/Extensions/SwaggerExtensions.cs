@@ -33,6 +33,16 @@ public static class SwaggerExtensions
         services.AddSwaggerGen(options =>
         {
             options.OperationFilter<SwaggerDefaultFilterValues>();
+
+            // XML docs - Api (Controller)
+            var apiXml = Path.Combine(AppContext.BaseDirectory, "Challenge.Api.xml");
+            if (File.Exists(apiXml))
+                options.IncludeXmlComments(apiXml);
+
+            // XML docs - Application (UseCase)
+            var appXml = Path.Combine(AppContext.BaseDirectory, "Challenge.Application.xml");
+            if (File.Exists(appXml))
+                options.IncludeXmlComments(appXml);
         });
     }
 

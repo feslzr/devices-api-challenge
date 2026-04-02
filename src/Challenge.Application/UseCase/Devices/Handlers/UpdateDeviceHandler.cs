@@ -10,6 +10,9 @@ namespace Challenge.Application.UseCase.Devices.Handlers;
 [ExcludeFromCodeCoverage]
 public class UpdateDeviceUseCase : BaseDeviceUseCase, IRequest<Device>
 {
+    /// <summary>
+    /// Sets the device ID to be updated. This field is required and must be provided for the update operation to proceed.
+    /// </summary>
     public required int Id { get; set; }
 
     public override string? Name { get; set; }

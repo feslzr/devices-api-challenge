@@ -10,9 +10,15 @@ namespace Challenge.Application.UseCase.Devices.Handlers;
 [ExcludeFromCodeCoverage]
 public class GetDeviceAllUseCase : IRequest<Pagination<Device>>
 {
+    /// <summary>
+    /// Sets the offset for pagination. Default value = 0.
+    /// </summary>
     [JsonPropertyName("offset")]
     public int Offset { get; set; } = 0;
 
+    /// <summary>
+    /// Sets the limit for pagination. Default value = 100.
+    /// </summary>
     [JsonPropertyName("limit")]
     public int Limit { get; set; } = 100;
 }

@@ -8,6 +8,9 @@ namespace Challenge.Application.UseCase.Devices.Handlers;
 [ExcludeFromCodeCoverage]
 public class DeleteDeviceUseCase : IRequest<Unit>
 {
+    /// <summary>
+    /// Sets the device ID to be deleted. This field is required and must be provided for the delete operation to proceed.
+    /// </summary>
     public required int Id { get; set; }
 }
 
