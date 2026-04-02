@@ -24,13 +24,13 @@ public class DeviceController(IMediator mediator) : ControllerBase
     /// <param name="request">Fields required to create a new device.</param>
     /// <returns>Returns a new device with fields.</returns>
     [HttpPost("Create")]
-    [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(Device), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Create(CreateDeviceUseCase request)
     {
         var response = await mediator.Send(request);
 
-        return Ok(response);
+        return CreatedAtAction(nameof(Create), new { id = response.Id }, response);
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public class DeviceController(IMediator mediator) : ControllerBase
     /// <param name="id">The ID of the device to update.</param>
     /// <param name="request">Fields available for updating an existing device.</param>
     /// <returns>Returns the success of the request.</returns>
-    [HttpPut("{id}")]
+    [HttpPatch("{id}")]
     [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Update(int id, [FromBody] BaseDeviceUseCase request)
@@ -57,13 +57,13 @@ public class DeviceController(IMediator mediator) : ControllerBase
     /// <param name="id">The ID of the device to remove.</param>
     /// <returns>Returns the success of the request.</returns>
     [HttpDelete("{id}")]
-    [ProducesResponseType(typeof(Device), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> Delete(int id)
     {
         await mediator.Send(new DeleteDeviceUseCase() { Id = id });
 
-        return Ok();
+        return NoContent();
     }
 
     /// <summary>
